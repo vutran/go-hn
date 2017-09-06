@@ -23,8 +23,7 @@ type Item struct {
 	Url         string `json:url`
 }
 
-func GetTopStories() []int {
-	url := Hostname + "/topstories.json"
+func Get(url string) *bytes.Buffer {
 	resp, err := http.Get(url)
 	if err != nil {
 		log.Fatal(err)
@@ -35,6 +34,13 @@ func GetTopStories() []int {
 	if _, err := io.Copy(&b, resp.Body); err != nil {
 		log.Fatal(err)
 	}
+
+	return &b
+}
+
+func GetTopStories() []int {
+	url := Hostname + "/topstories.json"
+	b := Get(url)
 
 	var ids []int
 	if parseErr := json.Unmarshal(b.Bytes(), &ids); parseErr != nil {
@@ -46,16 +52,7 @@ func GetTopStories() []int {
 
 func GetItem(id int) Item {
 	url := Hostname + "/item/" + strconv.Itoa(id) + ".json"
-	resp, err := http.Get(url)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer resp.Body.Close()
-
-	var b bytes.Buffer
-	if _, err := io.Copy(&b, resp.Body); err != nil {
-		log.Fatal(err)
-	}
+	b := Get(url)
 
 	item := Item{}
 
