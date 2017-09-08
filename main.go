@@ -10,6 +10,7 @@ import (
 	"strconv"
 )
 
+const MaxCount = 5
 const Hostname = "https://hacker-news.firebaseio.com/v0"
 
 type Item struct {
@@ -69,7 +70,7 @@ func main() {
 
 	fmt.Print("Top Stories:\n\n")
 
-	for _, id := range ids {
+	for _, id := range ids[:MaxCount] {
 		item := GetItem(id)
 		fmt.Printf("\t%s\n\t%s\n\n", item.Title, item.Url)
 	}
