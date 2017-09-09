@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -39,8 +40,8 @@ func Get(url string) *bytes.Buffer {
 	return &b
 }
 
-func GetTopStories() []int {
-	url := Hostname + "/topstories.json"
+func GetStories(list string) []int {
+	url := Hostname + "/" + list + ".json"
 	b := Get(url)
 
 	var ids []int
@@ -49,6 +50,18 @@ func GetTopStories() []int {
 	}
 
 	return ids
+}
+
+func GetNewStories() []int {
+	return GetStories("newstories")
+}
+
+func GetBestStories() []int {
+	return GetStories("beststories")
+}
+
+func GetTopStories() []int {
+	return GetStories("topstories")
 }
 
 func GetItem(id int) Item {
@@ -65,13 +78,55 @@ func GetItem(id int) Item {
 
 }
 
+func Usage() string {
+	return `
+Usage:
+
+	$ hn [flags] <command>
+
+Commands:
+
+	top		Display top posts
+	new		Display new posts
+	best		Display best posts
+
+Flags:
+
+	--limit		Cap max results
+
+Examples:
+
+	$ hn --limit 3 top
+	$ hn best
+
+`
+}
+
 func main() {
-	ids := GetTopStories()
+	limit := flag.Int("limit", MaxCount, "Cap max results")
+	flag.Parse()
+	cmd := flag.Arg(0)
 
-	fmt.Print("Top Stories:\n\n")
+	var ids []int
 
-	for _, id := range ids[:MaxCount] {
-		item := GetItem(id)
-		fmt.Printf("\t%s\n\t%s\n\n", item.Title, item.Url)
+	switch cmd {
+	case "best":
+		ids = GetBestStories()
+		fmt.Print("Best Stories:\n\n")
+	case "new":
+		ids = GetNewStories()
+		fmt.Print("New Stories:\n\n")
+	case "top":
+		ids = GetTopStories()
+		fmt.Print("Top Stories:\n\n")
+	default:
+		fmt.Print(Usage())
+	}
+
+	if len(ids) > 0 {
+		for _, id := range ids[:*limit] {
+			item := GetItem(id)
+			fmt.Printf("\t%s\n\t%s\n\n", item.Title, item.Url)
+		}
 	}
 }
