@@ -7,22 +7,13 @@
 ```
 Usage:
 
-	$ hn [flags] <command>
+        hn [flags] <command>
 
 Commands:
 
-	top		Display top posts
-	new		Display new posts
-	best		Display best posts
-
-Flags:
-
-	--limit		Cap max results
-
-Examples:
-
-	$ hn --limit 3 top
-	$ hn best
+	new     Show new stories
+	best    Show best stories
+	top     Show top stories
 ```
 
 ## License
