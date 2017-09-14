@@ -2,18 +2,26 @@
 
 > Simple command-line util to fetch stories from Hacker News
 
+## Install
+
+To get started, you need a working Go environment. Once available, grab the tool here:
+
+```
+$ go get -u github.com/vutran/go-hn
+```
+
 ## Usage
 
 ```
 Usage:
 
-        hn [flags] <command>
+	hn [flags] <command>
 
 Commands:
 
-	new     Show new stories
-	best    Show best stories
-	top     Show top stories
+	new	Show new stories
+	best	Show best stories
+	top	Show top stories
 ```
 
 ## License
