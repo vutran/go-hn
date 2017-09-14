@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/vutran/go-hn/lib/hn"
 	"github.com/vutran/srgnt"
-	"io"
 	"strconv"
 )
 
@@ -25,59 +24,43 @@ func GetItems(ids []int, limit int) *bytes.Buffer {
 	return &b
 }
 
-func Top(flags *flag.FlagSet) io.Reader {
+func Top(flags *flag.FlagSet) {
 	limit, _ := strconv.Atoi(flags.Lookup("limit").Value.String())
-	var b bytes.Buffer
-
-	_, _ = b.WriteString("Top Stories\n\n")
 
 	ids := hn.GetTopStories()
-
 	items := GetItems(ids, limit)
-	b.Write(items.Bytes())
 
-	return &b
+	fmt.Println("Top Stories\n")
+	fmt.Print(items.String())
 }
 
-func New(flags *flag.FlagSet) io.Reader {
+func New(flags *flag.FlagSet) {
 	limit, _ := strconv.Atoi(flags.Lookup("limit").Value.String())
-	var b bytes.Buffer
-
-	_, _ = b.WriteString("New Stories\n\n")
 
 	ids := hn.GetNewStories()
-
 	items := GetItems(ids, limit)
-	b.Write(items.Bytes())
 
-	return &b
+	fmt.Println("New Stories\n")
+	fmt.Print(items.String())
 }
 
-func Best(flags *flag.FlagSet) io.Reader {
+func Best(flags *flag.FlagSet) {
 	limit, _ := strconv.Atoi(flags.Lookup("limit").Value.String())
-	var b bytes.Buffer
-
-	_, _ = b.WriteString("Best Stories\n\n")
 
 	ids := hn.GetBestStories()
-
 	items := GetItems(ids, limit)
-	b.Write(items.Bytes())
 
-	return &b
+	fmt.Println("Best Stories\n")
+	fmt.Print(items.String())
 }
 
 func main() {
-	done := make(chan bool, 1)
-
-	cli := srgnt.CreateProgram("hn")
+	cli := srgnt.CreateProgram("go-hn")
 
 	cli.AddCommand("top", Top, "Show top stories")
 	cli.AddCommand("new", New, "Show new stories")
 	cli.AddCommand("best", Best, "Show best stories")
 	cli.AddIntFlag("limit", MaxCount, "Specify max results")
 
-	cli.Run(done)
-
-	<-done
+	cli.Run()
 }
