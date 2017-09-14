@@ -15,7 +15,7 @@ $ go get -u github.com/vutran/go-hn
 ```
 Usage:
 
-	hn [flags] <command>
+	go-hn [flags] <command>
 
 Commands:
 
