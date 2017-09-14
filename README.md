@@ -24,6 +24,10 @@ Commands:
 	top	Show top stories
 ```
 
+## Related
+
+- [srgnt](https://github.com/vutran/srgnt) - Simple command-line framework for Go Edit
+
 ## License
 
 MIT © [Vu Tran](https://github.com/vutran)
