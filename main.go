@@ -54,12 +54,45 @@ func Best(flags *flag.FlagSet) {
 	fmt.Print(items.String())
 }
 
+func Ask(flags *flag.FlagSet) {
+	limit, _ := strconv.Atoi(flags.Lookup("limit").Value.String())
+
+	ids := hn.GetAskStories()
+	items := GetItems(ids, limit)
+
+	fmt.Println("Ask HN\n")
+	fmt.Print(items.String())
+}
+
+func Show(flags *flag.FlagSet) {
+	limit, _ := strconv.Atoi(flags.Lookup("limit").Value.String())
+
+	ids := hn.GetShowStories()
+	items := GetItems(ids, limit)
+
+	fmt.Println("Show HN\n")
+	fmt.Print(items.String())
+}
+
+func Jobs(flags *flag.FlagSet) {
+	limit, _ := strconv.Atoi(flags.Lookup("limit").Value.String())
+
+	ids := hn.GetJobStories()
+	items := GetItems(ids, limit)
+
+	fmt.Println("Jobs\n")
+	fmt.Print(items.String())
+}
+
 func main() {
 	cli := srgnt.CreateProgram("go-hn")
 
-	cli.AddCommand("top", Top, "Show top stories")
-	cli.AddCommand("new", New, "Show new stories")
-	cli.AddCommand("best", Best, "Show best stories")
+	cli.AddCommand("top", Top, "View top stories")
+	cli.AddCommand("new", New, "View new stories")
+	cli.AddCommand("best", Best, "View best stories")
+	cli.AddCommand("ask", Best, "View Ask HN stories")
+	cli.AddCommand("show", Best, "View Show HN stories")
+	cli.AddCommand("jobs", Best, "View jobs")
 	cli.AddIntFlag("limit", MaxCount, "Specify max results")
 
 	cli.Run()

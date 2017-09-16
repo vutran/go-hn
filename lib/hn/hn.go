@@ -44,6 +44,18 @@ func GetTopStories() []int {
 	return GetStories("topstories")
 }
 
+func GetAskStories() []int {
+	return GetStories("askstories")
+}
+
+func GetShowStories() []int {
+	return GetStories("showstories")
+}
+
+func GetJobStories() []int {
+	return GetStories("jobstories")
+}
+
 func GetItem(id int) Item {
 	url := Hostname + "/item/" + strconv.Itoa(id) + ".json"
 	b := utils.Get(url)
