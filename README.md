@@ -19,9 +19,12 @@ Usage:
 
 Commands:
 
-	new	Show new stories
-	best	Show best stories
-	top	Show top stories
+	new	View new stories
+	best	View best stories
+	top	View top stories
+	ask	View Ask HN stories
+	show	View Show HN stories
+	jobs	View jobs
 ```
 
 ## Related
