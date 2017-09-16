@@ -29,7 +29,7 @@ Commands:
 
 ## Related
 
-- [srgnt](https://github.com/vutran/srgnt) - Simple command-line framework for Go Edit
+- [srgnt](https://github.com/vutran/srgnt) - Simple command-line framework for Go
 
 ## License
 
