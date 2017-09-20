@@ -90,9 +90,9 @@ func main() {
 	cli.AddCommand("top", Top, "View top stories")
 	cli.AddCommand("new", New, "View new stories")
 	cli.AddCommand("best", Best, "View best stories")
-	cli.AddCommand("ask", Best, "View Ask HN stories")
-	cli.AddCommand("show", Best, "View Show HN stories")
-	cli.AddCommand("jobs", Best, "View jobs")
+	cli.AddCommand("ask", Ask, "View Ask HN stories")
+	cli.AddCommand("show", Show, "View Show HN stories")
+	cli.AddCommand("jobs", Jobs, "View jobs")
 	cli.AddIntFlag("limit", MaxCount, "Specify max results")
 
 	cli.Run()
